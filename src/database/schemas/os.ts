@@ -5,8 +5,13 @@ const OrderService = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //   responsible_technician: {
+  //     type: String,
+  //     required: true,
+  //   },
   responsible_technician: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   status: {
@@ -34,10 +39,10 @@ const OrderService = new mongoose.Schema({
     default: Date.now,
   },
 
-  assignedTo: {
+  createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: false,
+    required: true,
   },
 })
 

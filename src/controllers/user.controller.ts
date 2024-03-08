@@ -78,7 +78,18 @@ const userController = new UserController()
 export default userController
 
 export const createSessionController = async (req: Request, res: Response) => {
+  const { email } = req.body
+
   try {
+    const userExist = await User.findOne({ email })
+
+    if (!userExist) {
+      return res.status(404).json({
+        error: "Ops",
+        message: "User not exists",
+      })
+    }
+
     const sessionData = req.body
     const token = await createSessionService(sessionData)
     return res.json(token)
